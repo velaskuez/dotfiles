@@ -250,6 +250,27 @@ vim.api.nvim_create_user_command("GithubCopy", function(opts)
     vim.fn.setreg("+", url)
 end, { nargs = "?", range = true })
 
+local format_on_save_group = "FormatOnSave"
+function enable_format_on_save()
+    vim.api.nvim_create_augroup(format_on_save_group, { clear = true })
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      group = format_on_save_group,
+      callback = function() vim.lsp.buf.format() end,
+    })
+end
+function disable_format_on_save()
+    vim.api.nvim_del_augroup_by_name(format_on_save_group)
+    format_on_save_enabled = false
+end
+enable_format_on_save()
+
+vim.api.nvim_create_user_command("EnableFormatOnSave", enable_format_on_save, {})
+vim.api.nvim_create_user_command("DisableFormatOnSave", disable_format_on_save, {})
+vim.api.nvim_create_user_command("Format", function() vim.lsp.buf.format() end, {})
+
+vim.api.nvim_create_user_command("HideDiagnostics", function() vim.diagnostic.enable(false) end, {})
+vim.api.nvim_create_user_command("ShowDiagnostics", function() vim.diagnostic.enable(true) end, {})
+
 vim.cmd([[
     cnoreabbrev bdo BufDeleteOthers
     cnoreabbrev bda BufDeleteAll
@@ -552,28 +573,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.lsp.buf.hover()
         vim.api.nvim_command('autocmd CursorMoved <buffer> ++once set eventignore=""')
     end
-
-    -- Format on save
-    local format_on_save_enabled = false
-    local function toggle_format_on_save()
-        local group_name = "FormatOnSave"
-
-        if format_on_save_enabled then
-            vim.api.nvim_del_augroup_by_name(group_name)
-            format_on_save_enabled = false
-        else
-            vim.api.nvim_create_augroup(group_name, { clear = true })
-            vim.api.nvim_create_autocmd("BufWritePre", {
-              group = group_name,
-              callback = function()
-                  vim.lsp.buf.format()
-              end,
-            })
-            format_on_save_enabled = true
-        end
-    end
-    toggle_format_on_save()
-    vim.api.nvim_create_user_command("ToggleFormatOnSave", toggle_format_on_save, {})
 
     vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
     vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
