@@ -270,6 +270,9 @@ vim.api.nvim_create_user_command("Format", function() vim.lsp.buf.format() end, 
 
 vim.api.nvim_create_user_command("HideDiagnostics", function() vim.diagnostic.enable(false) end, {})
 vim.api.nvim_create_user_command("ShowDiagnostics", function() vim.diagnostic.enable(true) end, {})
+vim.api.nvim_create_user_command("Fix", function()
+    vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
+end, {})
 
 vim.cmd([[
     cnoreabbrev bdo BufDeleteOthers
@@ -375,6 +378,7 @@ vim.diagnostic.config({
         }
     }
 })
+vim.diagnostic.enable(false)
 
 local lualine_theme = require"themes.lualine"
 require("lualine").setup {
@@ -386,7 +390,7 @@ require("lualine").setup {
     sections = {
         lualine_b = {
             "branch", "diff",
-            { "diagnostics", symbols = { error = "⏺ ", warn = "⏺ ", info = "⏺ ", hint = "⏺ " } }
+            -- { "diagnostics", symbols = { error = "⏺ ", warn = "⏺ ", info = "⏺ ", hint = "⏺ " } }
         },
         lualine_c = { { "filename", path = 1 } },
         lualine_x = { "encoding", "filetype" },
