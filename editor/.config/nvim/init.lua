@@ -272,6 +272,11 @@ vim.api.nvim_create_user_command("HideDiagnostics", function() vim.diagnostic.en
 vim.api.nvim_create_user_command("ShowDiagnostics", function() vim.diagnostic.enable(true) end, {})
 vim.api.nvim_create_user_command("Fix", function()
     vim.diagnostic.setqflist({ severity = vim.diagnostic.severity.ERROR })
+
+    local ok, _ = pcall(vim.cmd, 'cfirst')
+    if not ok then
+        vim.api.nvim_echo({{"No errors", "ErrorMsg"}}, true, {})
+    end
 end, {})
 
 vim.cmd([[
@@ -279,9 +284,7 @@ vim.cmd([[
     cnoreabbrev bda BufDeleteAll
     cnoreabbrev bde BufDeleteExplore
     cnoreabbrev bdp BufDeletePrevious
-    cnoreabbrev cfp CopyFilePath
     cnoreabbrev er EditRelative
-    cnoreabbrev rn Rename
     cnoreabbrev gho GithubOpen
     cnoreabbrev ghc GithubCopy
 ]])
