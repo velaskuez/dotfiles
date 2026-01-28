@@ -94,12 +94,14 @@ vim.keymap.set("n", "<space>c", "<cmd>TSContextToggle<cr>", { remap = false })
 vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end)
 vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end)
 vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
+vim.keymap.set("n", "dt", function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end)
 
 -- Convenient navigation mappings for insert mode
 vim.keymap.set("i", "<C-b>", "<Left>")
 vim.keymap.set("i", "<C-f>", "<Right>")
 vim.keymap.set("i", "<C-e>", "<End>")
--- vim.keymap.set("i", "<C-a>", "<Home>")
+vim.keymap.set("i", "<C-a>", "<C-o>^")
+vim.keymap.set("i", "<C-d>", "<Del>")
 -- vim.keymap.set("i", "<M-b>", "<C-o>b")
 -- vim.keymap.set("i", "<M-f>", "<C-o>w")
 
@@ -207,6 +209,10 @@ vim.api.nvim_create_user_command("CloseDiff", function()
           vim.api.nvim_buf_delete(buf, { force = true })
       end
     end
+end, {})
+
+vim.api.nvim_create_user_command("PreviewHunk", function(opts)
+    require("gitsigns").preview_hunk()
 end, {})
 
 vim.api.nvim_create_user_command("ResetHunk", function(opts)
@@ -374,10 +380,10 @@ vim.diagnostic.config({
     severity_sort = true,
     signs = {
         text = {
-            [vim.diagnostic.severity.HINT]  = "⏺",
-            [vim.diagnostic.severity.ERROR] = "⏺",
-            [vim.diagnostic.severity.INFO]  = "⏺",
-            [vim.diagnostic.severity.WARN]  = "⏺"
+            [vim.diagnostic.severity.HINT]  = "H",
+            [vim.diagnostic.severity.ERROR] = "E",
+            [vim.diagnostic.severity.INFO]  = "I",
+            [vim.diagnostic.severity.WARN]  = "W"
         }
     }
 })
@@ -393,7 +399,7 @@ require("lualine").setup {
     sections = {
         lualine_b = {
             "branch", "diff",
-            -- { "diagnostics", symbols = { error = "⏺ ", warn = "⏺ ", info = "⏺ ", hint = "⏺ " } }
+            -- { "diagnostics", symbols = { error = "E ", warn = "W ", info = "I ", hint = "H " } }
         },
         lualine_c = { { "filename", path = 1 } },
         lualine_x = { "encoding", "filetype" },

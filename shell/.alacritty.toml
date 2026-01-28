@@ -28,8 +28,3 @@ size = 12
 
 [mouse]
 hide_when_typing = true
-
-# [keyboard]
-# bindings = [
-#   { key = "F", mods = "alt|shift", action = "ToggleMaximized" }
-# ]
