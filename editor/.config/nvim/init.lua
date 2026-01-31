@@ -93,8 +93,8 @@ vim.keymap.set("n", "<space>c", "<cmd>TSContextToggle<cr>", { remap = false })
 -- Diagnostics
 vim.keymap.set("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end)
 vim.keymap.set("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end)
-vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "dt", function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+vim.keymap.set("n", "<leader>dt", function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end)
 
 -- Convenient navigation mappings for insert mode
 vim.keymap.set("i", "<C-b>", "<Left>")
