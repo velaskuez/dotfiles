@@ -15,9 +15,10 @@ background = "#1E1F22"
 
 [cursor]
 blink_timeout = 0
+thickness = 0.2
 
 [cursor.style]
-blinking = "Always"
+blinking = "Off"
 
 [cursor.vi_mode_style]
 blinking = "Always"

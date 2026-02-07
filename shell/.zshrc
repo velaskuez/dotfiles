@@ -35,10 +35,10 @@ bindkey -v '^?' backward-delete-char
 zle-keymap-select() {
     case $KEYMAP in
         vicmd)
-            echo -ne '\e[1 q'
+            echo -ne '\e[2 q'
             ;;
         main|viins)
-            echo -ne '\e[5 q'
+            echo -ne '\e[6 q'
             ;;
     esac
 
