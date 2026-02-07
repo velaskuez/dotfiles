@@ -4,12 +4,18 @@ set splitright
 set splitbelow
 set ignorecase
 set smartcase
+set incsearch
+set clipboard+=unnamed
 
 let mapleader = " "
 
 nnoremap <leader>f :action GotoFile<CR>
 nnoremap <leader>b :action RecentFiles<CR>
 nnoremap <leader>/ :action FindInPath<CR>
+
+nnoremap gi :action GotoImplementation<CR>
+nnoremap gtd :action GotoTypeDeclaration<CR>
+nnoremap gr :action FindUsages<CR>
 
 nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
@@ -23,9 +29,6 @@ nnoremap <leader>de :action ActivateProblemsViewToolWindow<CR>
 nnoremap <leader>DE :action ActivateProblemsViewToolWindow<CR>
 
 nnoremap <leader>e :action ShowErrorDescription<CR>
-
-" ie context
-nnoremap <leader>c :action ToggleShowBreadcrumbs<CR>
 
 " Convenient navigation mappings for insert mode
 inoremap <C-b> <Left>
@@ -42,14 +45,8 @@ command! BufDeleteAll action CloseAllEditors
 cnoreabbrev bdo BufDeleteOthers
 cnoreabbrev bda BufDeleteAll
 
-command! CopyFilePath action CopyPath
+command! CopyFilePath action CopyPathWithLineNumber
 cnoreabbrev cpfp CopyFilePath
 
-" This requires the github plugin apparently
-command! GithubCopy action CopyGithubURL
-cnoreabbrev ghc GithubCopy
-
-" For the completion menu
-inoremap <Tab> <Down>
-inoremap <S-Tab> <Up>
-inoremap <CR> <Enter>
+command! GithubOpen action Github.Open.In.Browser
+cnoreabbrev gho GithubOpen
