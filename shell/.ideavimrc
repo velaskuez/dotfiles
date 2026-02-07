@@ -1,0 +1,55 @@
+set number
+set relativenumber
+set splitright
+set splitbelow
+set ignorecase
+set smartcase
+
+let mapleader = " "
+
+nnoremap <leader>f :action GotoFile<CR>
+nnoremap <leader>b :action RecentFiles<CR>
+nnoremap <leader>/ :action FindInPath<CR>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nnoremap ]d :action GotoNextError<CR>
+nnoremap [d :action GotoPreviousError<CR>
+
+nnoremap <leader>de :action ActivateProblemsViewToolWindow<CR>
+nnoremap <leader>DE :action ActivateProblemsViewToolWindow<CR>
+
+nnoremap <leader>e :action ShowErrorDescription<CR>
+
+" ie context
+nnoremap <leader>c :action ToggleShowBreadcrumbs<CR>
+
+" Convenient navigation mappings for insert mode
+inoremap <C-b> <Left>
+inoremap <C-f> <Right>
+inoremap <C-e> <End>
+inoremap <C-a> <C-o>^
+inoremap <C-d> <Del>
+
+" Signature help
+inoremap <C-s> <C-o>:action ParameterInfo<CR>
+
+command! BufDeleteOthers action CloseAllEditorsButActive
+command! BufDeleteAll action CloseAllEditors
+cnoreabbrev bdo BufDeleteOthers
+cnoreabbrev bda BufDeleteAll
+
+command! CopyFilePath action CopyPath
+cnoreabbrev cpfp CopyFilePath
+
+" This requires the github plugin apparently
+command! GithubCopy action CopyGithubURL
+cnoreabbrev ghc GithubCopy
+
+" For the completion menu
+inoremap <Tab> <Down>
+inoremap <S-Tab> <Up>
+inoremap <CR> <Enter>

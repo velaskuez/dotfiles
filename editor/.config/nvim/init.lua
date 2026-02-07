@@ -290,6 +290,7 @@ vim.cmd([[
     cnoreabbrev bda BufDeleteAll
     cnoreabbrev bde BufDeleteExplore
     cnoreabbrev bdp BufDeletePrevious
+    cnoreabbrev cpfp CopyFilePath
     cnoreabbrev er EditRelative
     cnoreabbrev gho GithubOpen
     cnoreabbrev ghc GithubCopy
