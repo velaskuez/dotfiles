@@ -1,3 +1,7 @@
+Plug 'tpope/vim-commentary'
+
+set NERDTree
+
 set number
 set relativenumber
 set splitright
@@ -6,13 +10,21 @@ set ignorecase
 set smartcase
 set incsearch
 set clipboard+=unnamed
+set visualbell
 
 let mapleader = " "
 
 nnoremap <leader>f :action GotoFile<CR>
-nnoremap <leader>b :action RecentFiles<CR>
+" Remap Iterate Switcher Forward -> <C-j>, Backward -> <C-k>. Unmap show documentation
+" Or get used to using <C-n> and <C-p>
+nnoremap <leader>b :action Switcher<CR>
 nnoremap <leader>/ :action FindInPath<CR>
 nnoremap <leader>a :action ShowIntentionActions<CR>
+
+nnoremap <leader>n :NERDTreeFocus<CR>
+
+nnoremap <M-h> :action PreviousTab<CR>
+nnoremap <M-l> :action NextTab<CR>
 
 nnoremap gi :action GotoImplementation<CR>
 nnoremap gtd :action GotoTypeDeclaration<CR>
