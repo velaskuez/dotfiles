@@ -117,6 +117,9 @@ vim.keymap.set("n", "]h", "<cmd>Gitsigns next_hunk<cr>")
 -- vim.keymap.set("n", "]q", "<cmd>cne<CR>") -- Default in nvim 11
 -- vim.keymap.set("n", "[q", "<cmd>cpr<CR>") -- Default in nvim 11
 
+-- Code Navigation
+vim.keymap.set("n", "gd", "<C-]>")
+
 -- User commands
 function relative_complete(arglead, _, _)
     local path = vim.fn.expand("%:p:h")
@@ -377,6 +380,14 @@ vim.api.nvim_create_autocmd({ "BufLeave", "FocusLost", "InsertEnter", "WinLeave"
 vim.api.nvim_create_autocmd({ "FileType" }, {
     pattern = "*",
     command = "set formatoptions-=ro"
+})
+
+-- Keep tags file up to date
+vim.api.nvim_create_autocmd("BufWritePost", {
+  pattern = { "*.c", "*.h" },
+  callback = function()
+    vim.fn.jobstart({ "/opt/homebrew/bin/ctags", "-R", vim.fn.getcwd() }, { detach = true })
+  end,
 })
 
 vim.diagnostic.config({
@@ -653,11 +664,9 @@ vim.lsp.config("volar", {
 vim.lsp.enable({
     "rust_analyzer",
     "gopls",
-    "clangd",
+    -- "clangd",
     "terraformls",
-    "hls",
     "jdtls",
-    "ocamllsp",
     "ts_ls"
 })
 

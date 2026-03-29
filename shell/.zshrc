@@ -26,6 +26,7 @@ alias tls="tmux ls"
 alias ta="tmux attach -t"
 alias got="go test ./... -race -cover"
 alias brewbundle="brew update && brew bundle install --no-upgrade --cleanup --file=~/Brewfile"
+alias ctags="$(brew --prefix)/bin/ctags"
 
 # use vi key bindings
 bindkey -v
