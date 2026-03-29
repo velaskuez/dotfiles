@@ -72,6 +72,10 @@ vim.keymap.set("n", "gri", "<Nop>", { remap = false }) -- Default in nvim 11
 vim.keymap.set("n", "gO", "<Nop>", { remap = false })  -- Default in nvim 11
 vim.keymap.set("n", "gra", "<Nop>", { remap = false }) -- Default in nvim 11
 
+-- Consistent search direction
+vim.keymap.set("n", "n", function() return vim.v.searchforward == 1 and "n" or "N" end, { expr = true })
+vim.keymap.set("n", "N", function() return vim.v.searchforward == 1 and "N" or "n" end, { expr = true })
+
 -- FZF
 vim.keymap.set("n", "<leader>f", "<cmd>FzfLua files<cr>", { remap = false })
 vim.keymap.set("n", "<leader>b", "<cmd>FzfLua buffers <cr>", { remap = false })
