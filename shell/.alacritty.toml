@@ -28,4 +28,4 @@ normal = { family = "JetBrains Mono", style = "Regular" }
 size = 12
 
 [mouse]
-hide_when_typing = true
+# hide_when_typing = true
